@@ -34,13 +34,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		}
 	}
 	
-	func disable() {
-		setValue(for: .buttomLeft, function: .null)
-		setValue(for: .buttomRight, function: .null)
-		setValue(for: .topLeft, function: .null)
-		setValue(for: .topRight, function: .null)
-		killDock()
-	}
 	
 	
 	// You can custom default hot corner
@@ -51,6 +44,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		setValue(for: .topRight, function: .desktop)
 		killDock()
 	}
+	
+	
+	func disable() {
+		setValue(for: .buttomLeft, function: .null)
+		setValue(for: .buttomRight, function: .null)
+		setValue(for: .topLeft, function: .null)
+		setValue(for: .topRight, function: .null)
+		killDock()
+	}
+	
+	
 	
 	
 	
