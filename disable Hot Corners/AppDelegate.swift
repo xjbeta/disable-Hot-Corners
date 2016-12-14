@@ -26,6 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			
 			enable()
 		} else {
+			saveValue()
 			disable()
 		}
 		NSSound(contentsOfFile: "/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/payment_success.aif", byReference: true)?.play()
@@ -38,10 +39,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	
 	// You can custom default hot corner
 	func enable() {
-		setValue(for: .buttomLeft, function: .missionControl)
-		setValue(for: .buttomRight, function: .launchpad)
-		setValue(for: .topLeft, function: .null)
-		setValue(for: .topRight, function: .desktop)
+		setValue(for: .buttomLeft, function: getSaveVaule(corner: .buttomLeft))
+		setValue(for: .buttomRight, function: getSaveVaule(corner: .buttomRight))
+		setValue(for: .topLeft, function: getSaveVaule(corner: .topLeft))
+		setValue(for: .topRight, function: getSaveVaule(corner: .topRight))
 		killDock()
 	}
 	
@@ -89,6 +90,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		return UserDefaults.standard.persistentDomain(forName: "com.apple.dock")?[corner.rawValue] as? Int ?? -1
 	}
 	
+	func saveValue() {
+		UserDefaults.standard.set(value(for: .buttomLeft), forKey: corner.buttomLeft.rawValue)
+		UserDefaults.standard.set(value(for: .buttomRight), forKey: corner.buttomRight.rawValue)
+		UserDefaults.standard.set(value(for: .topLeft), forKey: corner.topLeft.rawValue)
+		UserDefaults.standard.set(value(for: .topRight), forKey: corner.topRight.rawValue)
+	}
+	
+	func getSaveVaule(corner: corner) -> function {
+		return function(rawValue: UserDefaults.standard.integer(forKey: corner.rawValue)) ?? .null
+	}
 	
 	
 
